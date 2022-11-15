@@ -12,6 +12,10 @@ RegExp _matchOnlyPersianLetters = RegExp(
     r'^[\\s,\u06A9\u06AF\u06C0\u06CC\u060C,\u062A\u062B\u062C\u062D\u062E\u062F,\u063A\u064A\u064B\u064C\u064D\u064E,\u064F\u067E\u0670\u0686\u0698\u200C,\u0621-\u0629\u0630-\u0639\u0641-\u0654]+$',
     caseSensitive: false);
 
+RegExp _matchOnlyPersianLettersWithSpaces = RegExp(
+    r'^[\\s,\u06A9\u06AF\u06C0\u06CC\u060C,\u062A\u062B\u062C\u062D\u062E\u062F,\u063A\u064A\u064B\u064C\u064D\u064E,\u064F\u067E\u0670\u0686\u0698\u200C,\u0621-\u0629\u0630-\u0639\u0641-\u0654,\u200B|\u200C|\u200E|\u200F|\u0020]+$',
+    caseSensitive: false);
+
 RegExp _hasHalfSpaces =
     RegExp(r'\u200B|\u200C|\u200E|\u200F', caseSensitive: false);
 
@@ -40,6 +44,12 @@ extension ReExpUtils on String {
   bool containsOnlyPersianNumbers() {
     return !this.isNullOrEmpty() &&
         _matchOnlyPersianNumbersRange.hasMatch(stripHtmlTags());
+  }
+
+  /// آیا عبارت مدنظر فقط حاوی عبارات فارسی و فاصله است؟
+  bool containsOnlyPersianAlphabetsAndSpaces() {
+    return !this.isNullOrEmpty() &&
+        _matchOnlyPersianLettersWithSpaces.hasMatch(stripHtmlTags());
   }
 
   /// آیا عبارت مدنظر شامل نیم فاصله است؟
