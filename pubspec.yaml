@@ -1,0 +1,13 @@
+name: persian_utils
+version: 2.0.1
+
+description: >-
+  persian_utils is a collection of Persian helper extension methods
+
+homepage: https://github.com/Majid110/persian_utils
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dev_dependencies:
+  test: ^1.16.8
