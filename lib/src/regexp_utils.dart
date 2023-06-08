@@ -9,12 +9,18 @@ RegExp _matchOnlyPersianNumbersRange =
     RegExp(r'^[\u06F0-\u06F9]+$', caseSensitive: false);
 
 RegExp _matchOnlyPersianLetters = RegExp(
-    r'^[\\s,\u06A9\u06AF\u06C0\u06CC\u060C,\u062A\u062B\u062C\u062D\u062E\u062F,\u063A\u064A\u064B\u064C\u064D\u064E,\u064F\u067E\u0670\u0686\u0698\u200C,\u0621-\u0629\u0630-\u0639\u0641-\u0654]+$',
+    r'^[\\s,\u06A9\u06AF\u06C0\u06CC\u060C,\u062A\u062B\u062C\u062D\u062E\u062F,\u063A\u064A\u064B\u064C\u064D\u064E,\u064F\u067E\u0670\u0686\u0698\u200C,\u0621-\u0629\u0630-\u0639\u0641-\u0654\n]+$',
     caseSensitive: false);
 
 RegExp _matchOnlyPersianLettersWithSpaces = RegExp(
-    r'^[\\s,\u06A9\u06AF\u06C0\u06CC\u060C,\u062A\u062B\u062C\u062D\u062E\u062F,\u063A\u064A\u064B\u064C\u064D\u064E,\u064F\u067E\u0670\u0686\u0698\u200C,\u0621-\u0629\u0630-\u0639\u0641-\u0654,\u200B|\u200C|\u200E|\u200F|\u0020]+$',
-    caseSensitive: false);
+  r'^[\s,\u06A9\u06AF\u06C0\u06CC\u060C,\u062A\u062B\u062C\u062D\u062E\u062F,\u063A\u064A\u064B\u064C\u064D\u064E,\u064F\u067E\u0670\u0686\u0698\u200C,\u0621-\u0629\u0630-\u0639\u0641-\u0654,\u200B|\u200C|\u200E|\u200F|\u0020\n]+$',
+  caseSensitive: false,
+);
+
+RegExp _matchPersianAndEnglish = RegExp(
+  r'^[\s\u0020\u2000-\u200A\u200B-\u200F\u2028\u2029\u202A-\u202E\u202F\u0621-\u063A\u0641-\u064A\u064B-\u0655\u067E\u0686\u0698-\u06AF\u06BE\u06CC\u06F0-\u06F9\u060C\u061B\u061F\u0640\u066A-\u066C\u0629\u0643\u0649\u064A\u064B\u064D\u06D5\u0660-\u0669A-Za-z0-9\n]+$',
+  caseSensitive: false,
+);
 
 RegExp _hasHalfSpaces =
     RegExp(r'\u200B|\u200C|\u200E|\u200F', caseSensitive: false);
@@ -50,6 +56,12 @@ extension ReExpUtils on String {
   bool containsOnlyPersianAlphabetsAndSpaces() {
     return !this.isNullOrEmpty() &&
         _matchOnlyPersianLettersWithSpaces.hasMatch(stripHtmlTags());
+  }
+
+  /// آیا عبارت مدنظر فقط حاوی عبارات فارسی و فاصله است؟
+  bool containsEnglishPersianAlphabetsAndSpaces() {
+    return !this.isNullOrEmpty() &&
+        _matchPersianAndEnglish.hasMatch(stripHtmlTags());
   }
 
   /// آیا عبارت مدنظر شامل نیم فاصله است؟
